@@ -23,17 +23,18 @@ public class Solution {
             } else if (asteroid < 0) {
                 boolean destroy = false;
                 for (int i = answer.size() - 1; i >= 0; i--) {
-                    if (answer.get(i) > 0 && Math.abs(answer.get(i)) > Math.abs(asteroid)) {
+                    if (answer.get(i) < 0) continue;
+                    if (Math.abs(answer.get(i)) > Math.abs(asteroid)) {
                         destroy = true;
                         break; //discard left moving asteroid
                     }
 
-                    if (answer.get(i) > 0 && Math.abs(answer.get(i)) < Math.abs(asteroid)) {
+                    if (Math.abs(answer.get(i)) < Math.abs(asteroid)) {
                         answer.remove(i);
                         continue; //discard right moving asteroid, keep left moving asteroid.
                     }
 
-                    if (answer.get(i) > 0 && Math.abs(answer.get(i)) == Math.abs(asteroid)) {
+                    if (Math.abs(answer.get(i)) == Math.abs(asteroid)) {
                         answer.remove(i);
                         destroy = true;
                         break; //discard both asteroids.
