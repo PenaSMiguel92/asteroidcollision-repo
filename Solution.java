@@ -2,13 +2,7 @@ import java.util.*;
 
 public class Solution {
     public int[] asteroidCollision(int[] asteroids) {
-        List<Integer> status = new ArrayList<>();
-        for (int asteroid : asteroids) {
-            status.add(asteroid);
-        }
-        
-
-
+        List<Integer> status = performCollisionCheck(asteroids);
         return convertListToArray(status);
     }
 
@@ -20,15 +14,30 @@ public class Solution {
         return answer;
     }
 
-    public void performStep(List<Integer> list) {
-        int index = 0;
-        int next = index + 1;
-        do {
-            
-            
+    public List<Integer> performCollisionCheck(int[] asteroids) {
+        List<Integer> answer = new ArrayList<>();
 
-            index++;
-            next = index + 1;
-        } while (next < list.size());
+        for (int asteroid : asteroids) {
+            if (asteroid > 0) {
+                answer.add(asteroid);
+            } else if (asteroid < 0) {
+                for (int i = answer.size() - 1; i >= 0; i--) {
+                    if (Math.abs(answer.get(i)) > Math.abs(asteroid))
+                        break; //discard left moving asteroid
+                    
+                    if (Math.abs(answer.get(i)) < Math.abs(asteroid)) {
+                        answer.remove(i);
+                        continue; //discard right moving asteroid, keep left moving asteroid.
+                    }
+
+                    if (Math.abs(answer.get(i)) == Math.abs(asteroid)) {
+                        answer.remove(i);
+                        break; //discard both asteroids.
+                    }
+                }
+            }
+        }
+
+        return answer;
     }
 }
