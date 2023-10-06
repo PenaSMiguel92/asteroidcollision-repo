@@ -16,7 +16,6 @@ public class Solution {
 
     public List<Integer> performCollisionCheck(int[] asteroids) {
         List<Integer> answer = new ArrayList<>();
-
         for (int asteroid : asteroids) {
             if (asteroid > 0) {
                 answer.add(asteroid);
